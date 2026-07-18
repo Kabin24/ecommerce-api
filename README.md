@@ -41,23 +41,23 @@ A E-Commerce Backend built with Django REST Framework, PostgreSQL, JWT authentic
 
 ```
 ecommerce_backend/
-├── ecommerce_backend/          # Main Django project
+├── ecommerce_backend/          
 │   ├── settings/
-│   │   ├── base.py            # Shared settings
-│   │   ├── dev.py             # Development settings
-│   │   └── prod.py            # Production settings
+│   │   ├── base.py            
+│   │   ├── dev.py            
+│   │   └── prod.py            
 │   ├── urls.py
 │   └── wsgi.py
-├── apps/                        # Django apps
-│   ├── core/                   # Shared utilities, permissions, pagination
-│   ├── accounts/               # User authentication
-│   ├── categories/             # Product categories
-│   ├── products/               # Product management
-│   ├── cart/                   # Shopping cart
-│   ├── orders/                 # Order management
-│   └── payments/               # Stripe integration
-├── tests/                       # Test suite
-├── media/                       # User uploads
+├── apps/                       
+│   ├── core/                  
+│   ├── accounts/               
+│   ├── categories/        
+│   ├── products/              
+│   ├── cart/                   
+│   ├── orders/               
+│   └── payments/               
+├── tests/                      
+├── media/                      
 ├── requirements.txt
 ├── .env.example
 ├── manage.py
