@@ -20,7 +20,7 @@ class ValidationException(CustomAPIException):
     default_detail = 'Validation error occurred.'
 
 
-class NotFoundExceptiontion(CustomAPIException):
+class NotFoundException(CustomAPIException):
     """Exception for resource not found."""
     status_code = status.HTTP_404_NOT_FOUND
     default_detail = 'Resource not found.'

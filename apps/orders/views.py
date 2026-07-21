@@ -11,6 +11,7 @@ from decimal import Decimal
 
 from apps.cart.models import Cart, CartItem
 from apps.core.permissions import IsOwnerOrAdmin
+from apps.products.models import Product
 from .models import Order, OrderItem, OrderStatusHistory
 from .serializers import (
     OrderListSerializer, OrderDetailSerializer, CheckoutSerializer,
@@ -124,16 +125,18 @@ class OrderViewSet(viewsets.ViewSet):
                 )
                 
                 # Create order items and reduce stock
-                for cart_item in cart.items.all():
+                for cart_item in cart.items.select_related('product').all():
+                    product = Product.objects.select_for_update().get(id=cart_item.product_id)
+                    
                     OrderItem.objects.create(
                         order=order,
-                        product=cart_item.product,
+                        product=product,
                         quantity=cart_item.quantity,
-                        price_at_purchase=cart_item.product.display_price
+                        price_at_purchase=product.display_price
                     )
                     
                     # Reduce product stock
-                    cart_item.product.reduce_stock(cart_item.quantity)
+                    product.reduce_stock(cart_item.quantity)
                 
                 # Log order creation
                 OrderStatusHistory.objects.create(

@@ -6,8 +6,6 @@ from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods
 from django.conf import settings
 import json
 import stripe
@@ -240,8 +238,8 @@ class PaymentViewSet(viewsets.ViewSet):
             }, status=status.HTTP_404_NOT_FOUND)
 
 
-@csrf_exempt  # Required for webhook
-@require_http_methods(["POST"])
+@api_view(['POST'])
+@permission_classes([])  # No auth required for webhook
 def stripe_webhook(request):
     """
     Stripe webhook handler for payment confirmations.

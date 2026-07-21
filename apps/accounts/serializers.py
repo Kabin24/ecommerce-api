@@ -115,13 +115,13 @@ class LoginSerializer(serializers.Serializer):
             user = User.objects.get(email=email)
         except User.DoesNotExist:
             raise serializers.ValidationError({
-                'email': 'User with this email does not exist.'
+                'non_field_errors': 'Invalid credentials.'
             })
         
         # Authenticate password
         if not user.check_password(password):
             raise serializers.ValidationError({
-                'password': 'Invalid password.'
+                'non_field_errors': 'Invalid credentials.'
             })
         
         attrs['user'] = user
